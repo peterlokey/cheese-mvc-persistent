@@ -13,7 +13,7 @@ import java.util.*;
  * Created by LaunchCode
  */
 @Entity
-public class Cheese {
+public class Menu {
 
     @Id
     @GeneratedValue
@@ -23,25 +23,25 @@ public class Cheese {
     @Size(min=3, max=15)
     private String name;
 
-    @NotNull
-    @Size(min=1, message = "Description must not be empty")
-    private String description;
-
-    @ManyToOne
-    private Category category;
-
-    public Cheese(String name, String description) {
+    public Menu (String name) {
         this.name = name;
-        this.description = description;
     }
 
-    @ManyToMany(mappedBy = "cheeses")
-    private List<Menu> menus;
+    public Menu () {}
 
-    public Cheese() { }
+    public void addItem (Cheese item) {
+        cheeses.add(item);
+    }
+
+    @ManyToMany
+    private List<Cheese> cheeses;
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -52,19 +52,7 @@ public class Cheese {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public List<Cheese> getCheeses() {
+        return cheeses;
     }
 }
